@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-app
+  labels:
+    app: server-app
+    group: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-app
+  template:
+    metadata:
+      labels:
+        app: server-app
+        group: db
+    spec:
+      containers:
+        - name: test-server
+          image: test-server:latest
+          ports:
+            - containerPort: 8100
+          resources:
+          imagePullPolicy: Never   # So it doesn't pull the image from remote registry

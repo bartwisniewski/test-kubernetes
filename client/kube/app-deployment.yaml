@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-app
+  labels:
+    app: client-app
+    group: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-app
+  template:
+    metadata:
+      labels:
+        app: client-app
+        group: db
+    spec:
+      containers:
+        - name: test-client
+          image: test-client:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: TEST_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: test-configmap
+                  key: test-server-host
+#          envFrom:
+#            - configMapRef:
+#                name: test-configmap
+#          env:
+#
+#            test-server-host: server-service
+#            test-server-port: "8100"
+#
+#
+#            - name: TEST_SERVER
+#              value: "server-service"
+#            - name: TEST_SERVER_PORT
+#              value: "8001"
+          resources:
+          imagePullPolicy: Never   # So it doesn't pull the image from remote registry

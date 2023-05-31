@@ -7,7 +7,7 @@ from clientapp.forms import ClientForm
 
 def url():
     host = os.environ.get("TEST_SERVER", "127.0.0.1")
-    port = os.environ.get("TEST_SERVER_PORT", "8001")
+    port = os.environ.get("TEST_SERVER_PORT", "8100")
     return f"http://{host}:{port}"
 
 def calculate(form: ClientForm) -> int:
